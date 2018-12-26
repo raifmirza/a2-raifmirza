@@ -42,7 +42,7 @@ def about():
     head = """ <meta charset="UTF-8">
         <link rel="stylesheet" href="./static/style2.css"/>
         <img class="center" src="./static/logo.png" alt="logo" widht="500px" height="450px">
-        <link rel="shortcut icon" href="./static/slogo.png" type="img/x-icon">
+        <link rel="shortcut icon" href="./static/logo.png" type="img/x-icon">
         <title>Tarantino</title>"""
     text = """<p class="q"><i>Television Actor, Producer, Film Actor, Director, Screenwriter, Actor (1963–)</i></p>
                 <br>
