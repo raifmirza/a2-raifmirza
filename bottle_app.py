@@ -199,12 +199,133 @@ def about():
                 <p>Reference from <a href="https://en.wikipedia.org/wiki/Category:Films_directed_by_Quentin_Tarantino">https://en.wikipedia.org/wiki/Category:Films_directed_by_Quentin_Tarantino</a></p> """
     return htmlify(head,text)
 
+def films():
+    head = """ <meta charset="UTF-8">
+<link rel="stylesheet" href="./static/style3.css"/>
+  <img class="center" src="./static/logo.png" alt="logo" widht="500px" height="450px">
+  <link rel="shortcut icon" href="./static/logo.png" type="img/x-icon">
+
+<title>Tarantino</title>"""
+    text ="""<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+<p class="q"><i>Television Actor, Producer, Film Actor, Director, Screenwriter, Actor (1963–)</i></p>
+<br>
+<div class="topnav">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a class="active" href="/films">Films</a>
+</div>
+<script>
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+<h2>Some of Him Top Films as a Director</h2>
+<table align="center">
+  <tr>
+    <td rowspan="3"><img src="./static/reservoir.jpg" title="Reservoir Dogs(1992)" alt="film poster" width="300px" height="350px"></td>
+    <td><img src="./static/imdb_icon.png"  title="IMDB" alt="imdb icon" width="30px" height="30px"> 8.3</td>
+  </tr>
+
+  <tr>
+  <td><img src="./static/rotten.png"  title="Rotten Tomatoes" alt="rotten tomatoes icon" width="30px" height="30px">%91</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.imdb.com/title/tt0105236/?ref_=nm_flmg_wr_25"><strong>About:</strong></a>After a simple jewelry heist goes terribly wrong, the surviving criminals begin to suspect that one of them is a police informant. </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td rowspan="3"><img src="./static/pulp.jpg" title="Pulp Fiction(1994)" alt="film poster" width="300px" height="350px"></td>
+    <td><img src="./static/imdb_icon.png"  title="IMDB" alt="imdb icon" width="30px" height="30px">8.9</td>
+  </tr>
+  <tr>
+  <td><img src="./static/rotten.png"  title="Rotten Tomatoes" alt="rotten tomatoes icon" width="30px" height="30px">%94</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.imdb.com/title/tt0110912/?ref_=nm_flmg_wr_23"><strong>About:</strong></a>The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.  </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td rowspan="3"><img src="./static/kill1.jpg" title="Kill Bill Vol. 1(2003)" alt="film poster" width="300px" height="350px"></td>
+    <td><img src="./static/imdb_icon.png"  title="IMDB" alt="imdb icon" width="30px" height="30px">8.1</td>
+  </tr>
+  <tr>
+  <td><img src="./static/rotten.png"  title="Rotten Tomatoes" alt="rotten tomatoes icon" width="30px" height="30px">%85</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.imdb.com/title/tt0266697/?ref_=nm_flmg_wr_15"><strong>About:</strong></a>After awakening from a four-year coma, a former assassin wreaks vengeance on the team of assassins who betrayed her. </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td rowspan="3"><img src="./static/kill2.jpg" title="Kill Bill Vol. 2(2004)" alt="film poster" width="300px" height="350px"></td>
+    <td><img src="./static/imdb_icon.png"  title="IMDB" alt="imdb icon" width="30px" height="30px">8.0</td>
+  </tr>
+  <tr>
+  <td><img src="./static/rotten.png"  title="Rotten Tomatoes" alt="rotten tomatoes icon" width="30px" height="30px">%84</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.imdb.com/title/tt0378194/?ref_=nm_flmg_wr_14"><strong>About:</strong></a>The Bride continues her quest of vengeance against her former boss and lover Bill, the reclusive bouncer Budd, and the treacherous, one-eyed Elle.  </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td rowspan="3"><img src="./static/ing.jpg" title="Inglourious Basterds (2009)" alt="film poster" width="300px" height="350px"></td>
+    <td><img src="./static/imdb_icon.png"  title="IMDB" alt="imdb icon" width="30px" height="30px">8.3</td>
+  </tr>
+  <tr>
+  <td><img src="./static/rotten.png"  title="Rotten Tomatoes" alt="rotten tomatoes icon" width="30px" height="30px">%88</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.imdb.com/title/tt0361748/?ref_=nm_flmg_dr_6"><strong>About:</strong></a>In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner's vengeful plans for the same. </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td rowspan="3"><img src="./static/django.jpg" title="Django Unchained (2012)" alt="film poster" width="300px" height="350px"></td>
+    <td><img src="./static/imdb_icon.png"  title="IMDB" alt="imdb icon" width="30px" height="30px">8.4</td>
+  </tr>
+  <tr>
+  <td><img src="./static/rotten.png"  title="Rotten Tomatoes" alt="rotten tomatoes icon" width="30px" height="30px">%86</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.imdb.com/title/tt1853728/?ref_=nm_flmg_wr_7"><strong>About:</strong></a>With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner. </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td rowspan="3"><img src="./static/hate.jpg" title="The Hateful Eight (2015)" alt="film poster" width="300px" height="350px"></td>
+    <td><img src="./static/imdb_icon.png"  title="IMDB" alt="imdb icon" width="30px" height="30px">7.8</td>
+  </tr>
+  <tr>
+  <td><img src="./static/rotten.png"  title="Rotten Tomatoes" alt="rotten tomatoes icon" width="30px" height="30px">%74</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.imdb.com/title/tt3460252/?ref_=nm_flmg_wr_5"><strong>About:</strong></a>In the dead of a Wyoming winter, a bounty hunter and his prisoner find shelter in a cabin currently inhabited by a collection of nefarious characters. </td>
+  </tr>
+</table>
+<p>Reference from <a href="https://www.rottentomatoes.com/">Rotten Tomatoes</a> and <a href="https://www.imdb.com/?ref_=nv_home">Imdb</a></p>"""
+    return htmlify(head,text)
+
 def static_file_callback(filename):
 	return static_file(filename ,root='./')
 
 
 route('/', 'GET', index)
 route('/about','GET',about)
+route('/films','GET',films)
 route('/static/<filename>' , 'GET' , static_file_callback)
 
 #####################################################################
