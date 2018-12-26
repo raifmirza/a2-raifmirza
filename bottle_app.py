@@ -5,25 +5,29 @@
 ### The landing page for assignment 3 should be at /
 #####################################################################
 
-from bottle import route, run, default_app, debug
+from bottle import route, run, default_app, debug,static_file
 
-def htmlify(title,text):
+def htmlify(head,text):
     page = """
         <!doctype html>
         <html lang="en">
             <head>
-                <meta charset="utf-8" />
-                <title>%s</title>
+                %s
             </head>
             <body>
             %s
             </body>
         </html>
 
-    """ % (title,text)
+    """ % (head,text)
     return page
 
 def index():
+    head = """ <meta charset="UTF-8">
+  <link rel="stylesheet" href="./static/style1.css"/>
+  <img class="center" src="./static/logo.png" alt="logo" widht="500px" height="450px">
+  <link rel="shortcut icon" href="./static/logo.png" type="img/x-icon">
+<title>Tarantino</title>"""
     return htmlify("My lovely website",
                    "This is going to be an awesome website, when it is finished.")
 
@@ -42,4 +46,3 @@ app = default_app()
 # The below code is necessary for running this bottle app standalone on your computer.
 if __name__ == "__main__":
   run()
-
