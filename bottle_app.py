@@ -361,7 +361,7 @@ def html(text, text2):
       <br>
       <label for="message">Your message: </label>
       <br>
-      <textarea name="message" id="message" rows="8" cols="54" placeholder="Give us something!"></textarea>
+      <textarea name="message" id="message" rows="8" cols="54" placeholder="Add Comment"></textarea>
       <br>
       <input type="radio" name="grade" value="good" checked> Good
       <input type="radio" name="grade" value="neutral"> Neutral
