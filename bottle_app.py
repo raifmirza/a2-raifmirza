@@ -328,8 +328,8 @@ function topFunction() {
     return htmlify(head,text)
 
 
-def html(text, hey):
-    mywebpagestring = '''
+def html(text, text2):
+    comment_page = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -380,15 +380,15 @@ def html(text, hey):
     </div>
 </body>
 </html>
-    ''' % (hey,text)
-    return mywebpagestring
+    ''' % (text2,text)
+    return comment_page
 
 
 
 
 debug(mode=True)
 user_text = ""
-listx = []
+list_for_smth = []
 hash1 = "d883b52bdc5bcf4ad89a34da2a6b74c2765610f406a564ce8080868fd4befeb8"
 
 def get_comments(list):
@@ -429,20 +429,20 @@ def get_comments(list):
         print("Something go wrong")
 
 def com_message():
-    global listx
+    global list_for_smth
     global user_text
-    get_comments(listx)
-    cmd = ""
-    for i in listx:
-        cmd += i
-    return html(cmd, user_text)
+    get_comments(list_for_smth)
+    thello = ""
+    for i in list_for_smth:
+        thello += i
+    return html(thello, user_text)
 
 def delete():
-    global listx
+    global list_for_smth
     global user_text
-    get_comments(listx)
-    cmd = ""
-    if len(listx) == 0:
+    get_comments(list_for_smth)
+    thello = ""
+    if len(list_for_smth) == 0:
         user_text = """
                     <br>
                     <div class="alert">
@@ -450,11 +450,11 @@ def delete():
                     <strong>There is nothing to delete!</strong>
                     </div>"""
     else:
-        listx.pop()
+        list_for_smth.pop()
         user_text = "<p style='font-size: 30px; font-weight: 5'>Your comment has been deleted!</p>"
-        for i in listx:
-            cmd += i
-    return html(cmd,user_text)
+        for i in list_for_smth:
+            thello += i
+    return html(thello,user_text)
 
 
 
