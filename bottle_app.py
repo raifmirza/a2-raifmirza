@@ -5,7 +5,12 @@
 ### The landing page for assignment 3 should be at /
 #####################################################################
 
-from bottle import route, run, default_app, debug,static_file
+from bottle import route, run, default_app, debug,static_file,request
+from hashlib import sha256
+
+def create_hash(password):  # Hashing function is adopted from: https://bitbucket.org/damienjadeduff/hashing_example/raw/master/hash_password.py
+    pw_bytestring = password.encode()
+    return sha256(pw_bytestring).hexdigest()
 
 def htmlify(head,text):
     page = """
@@ -34,6 +39,7 @@ def index():
                 <a class="active" href="/">Home</a>
                 <a href="/about">About</a>
                 <a href="/films">Films</a>
+                <a href="/comment">Comment</a>
                 </div>
                 <img src="./static/tarantino1.jpg" title="Quentin Tarantino" alt="Tarantino" width="auto" height="auto"> """
     return htmlify(head,text)
@@ -50,6 +56,7 @@ def about():
                 <a href="/">Home</a>
                 <a class="active"href="/about">About</a>
                 <a href="/films">Films</a>
+                <a href="/comment">Comment</a>
                 </div>
                 <img src="./static/tarantino2.jpg" title="Tarantino" alt="Tarantino" style="float:right;width:700px;height:410px;">
                 <h2>Synopsis</h2>
@@ -214,6 +221,7 @@ def films():
   <a href="/">Home</a>
   <a href="/about">About</a>
   <a class="active" href="/films">Films</a>
+  <a href="/comment">Comment</a>
 </div>
 <script>
 window.onscroll = function() {scrollFunction()};
@@ -319,13 +327,106 @@ function topFunction() {
 <p>Reference from <a href="https://www.rottentomatoes.com/">Rotten Tomatoes</a> and <a href="https://www.imdb.com/?ref_=nv_home">Imdb</a></p>"""
     return htmlify(head,text)
 
+
+def html(text, hey):
+    mywebpagestring = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+<link rel="stylesheet" href="./static/style3.css"/>
+<img class="center" src="./static/logo.png" alt="logo" widht="500px" height="450px">
+<link rel="shortcut icon" href="./static/logo.png" type="img/x-icon">
+<title>Tarantino</title>
+</head>
+<body>
+  <p class="q"><i>Television Actor, Producer, Film Actor, Director, Screenwriter, Actor (1963–)</i></p>
+              <br>
+              <div class="topnav">
+              <a href="/">Home</a>
+              <a href="/about">About</a>
+              <a href="/films">Films</a>
+              <a class="active" href="/comment">Comment</a>
+              </div>
+  <div>
+    %s
+    <form class="form" method="post" action="/comment">
+      <label for="name">Name: </label>
+      <input type="text" id="name" name="name" placeholder="Name and Surname">
+      <label for="key">Key: </label>
+      <input type="password" id="key" name="pass" placeholder="Password">
+      <label for="message">Your message: </label>
+      <textarea name="message" id="message" rows="8" cols="54" placeholder="Give us something!"></textarea>
+  <span class="checkmark"></span>
+</label><input type="submit" name="submit" value="Submit">
+    </form>
+  </div>
+    <div  style="display: inline-block; width: 400px">
+    <p style='font-size: 30px; padding-bottom: 10px'>Previous Comments:</p>
+    %s
+    </div>
+</body>
+</html>
+    ''' % (hey,text)
+    return mywebpagestring
+
+debug(mode=True)
+user_text = ""
+listx = []
+hash1 = "d883b52bdc5bcf4ad89a34da2a6b74c2765610f406a564ce8080868fd4befeb8"
+
+def get_comments(list):
+    global user_text
+    global hash
+    try:
+        request.POST["name"]
+        namee = request.POST["name"]
+        try:
+            request.POST["message"]
+            user_comment = request.POST["message"]
+            if(user_comment != ""):
+                try:
+                    request.POST["pass"]
+                    pw = request.POST["pass"]
+                    newHash = create_hash(pw)
+                    if(newHash == hash1):
+                        list.append("<p style='font-size: 25px; font-weight: 5; padding-bottom: 7px'>"+namee+": "+user_comment+"</p>")
+                        user_text = "<p style='font-size: 30px; font-weight: 5'>Your comment has been added</p>"
+                    else:
+                        user_text = "<p style='font-size: 30px; font-weight: 5'>Wrong password, try again!</p>"
+                except:
+                    print("Something go wrong")
+            else:
+                user_text = "<p style='font-size: 30px; font-weight: 5'>You should give a comment first.</p>"
+        except:
+            print("Something go wrong")
+    except:
+        print("Something go wrong")
+
+def get_msg():
+    global listx
+    global user_text
+    get_comments(listx)
+    cmd = ""
+    for i in listx:
+        cmd += i
+    return html(cmd, user_text)
+
+
+
+
+
+
 def static_file_callback(filename):
 	return static_file(filename ,root='./')
+
 
 
 route('/', 'GET', index)
 route('/about','GET',about)
 route('/films','GET',films)
+route('/comment', 'GET', get_msg)
+route('/comment', 'POST', get_msg)
 route('/static/<filename>' , 'GET' , static_file_callback)
 
 #####################################################################
