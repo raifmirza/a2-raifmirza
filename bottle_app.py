@@ -334,7 +334,7 @@ def html(text, hey):
 <html lang="en">
 <head>
  <meta charset="UTF-8">
-<link rel="stylesheet" href="./static/style3.css"/>
+<link rel="stylesheet" href="./static/style4.css"/>
 <img class="center" src="./static/logo.png" alt="logo" widht="500px" height="450px">
 <link rel="shortcut icon" href="./static/logo.png" type="img/x-icon">
 <title>Tarantino</title>
@@ -352,17 +352,26 @@ def html(text, hey):
     %s
     <form class="form" method="post" action="/comment">
       <label for="name">Name: </label>
+      <br>
       <input type="text" rows="8" id="name" name="name" placeholder="Name and Surname">
       <br>
       <label for="key">Key: </label>
+      <br>
       <input type="password" rows="8" id="key" name="pass" placeholder="Password">
       <br>
       <label for="message">Your message: </label>
+      <br>
       <textarea name="message" id="message" rows="8" cols="54" placeholder="Give us something!"></textarea>
       <br>
+      <input type="radio" name="grade" value="good" checked> Good
+      <input type="radio" name="grade" value="neutral"> Neutral
+      <input type="radio" name="grade" value="bad"> Bad<br><br>
       <input type="submit" name="submit" value="Submit">
-      <input type="reset">
-      <input type="button" value="Delete" onclick="delete():">
+      <input type="reset"><br>
+
+    </form>
+    <form class="form" method="GET" action="/comment2">
+    <input type="submit" name="delete" value="Delete" onclick="hello">
     </form>
   </div>
     <div  style="display: inline-block; width: 400px">
@@ -392,12 +401,21 @@ def get_comments(list):
             request.POST["message"]
             user_comment = request.POST["message"]
             if(user_comment != ""):
+                request.POST["grade"]
+                check = request.POST["grade"]
+                if check == "good":
+                    say = "GOOD"
+                if check == "neutral":
+                    say = "Neutral"
+                if check == "bad":
+                    say = "Bad"
                 try:
                     request.POST["pass"]
                     pw = request.POST["pass"]
                     newHash = create_hash(pw)
                     if(newHash == hash1):
-                        list.append("<p style='font-size: 25px; font-weight: 5; padding-bottom: 7px'>"+user_name+": "+user_comment+"</p>")
+
+                        list.append("<p style='font-size: 25px; font-weight: 5; padding-bottom: 7px'>"+user_name+": "+user_comment+"   "+say+"</p>")
                         user_text = "<p style='font-size: 30px; font-weight: 5'>Your comment has been added</p>"
                     else:
                         user_text = "<p style='font-size: 30px; font-weight: 5'>Wrong password, try again!</p>"
@@ -419,7 +437,24 @@ def com_message():
         cmd += i
     return html(cmd, user_text)
 
-
+def delete():
+    global listx
+    global user_text
+    get_comments(listx)
+    cmd = ""
+    if len(listx) == 0:
+        user_text = """
+                    <br>
+                    <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>There is nothing to delete!</strong>
+                    </div>"""
+    else:
+        listx.pop()
+        user_text = "<p style='font-size: 30px; font-weight: 5'>Your comment has been deleted!</p>"
+        for i in listx:
+            cmd += i
+    return html(cmd,user_text)
 
 
 
@@ -433,6 +468,7 @@ route('/about','GET',about)
 route('/films','GET',films)
 route('/comment', 'GET', com_message)
 route('/comment', 'POST', com_message)
+route('/comment2', 'GET', delete)
 route('/static/<filename>' , 'GET' , static_file_callback)
 
 #####################################################################
