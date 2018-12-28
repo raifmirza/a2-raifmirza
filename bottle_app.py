@@ -352,13 +352,17 @@ def html(text, hey):
     %s
     <form class="form" method="post" action="/comment">
       <label for="name">Name: </label>
-      <input type="text" id="name" name="name" placeholder="Name and Surname">
+      <input type="text" rows="8" id="name" name="name" placeholder="Name and Surname">
+      <br>
       <label for="key">Key: </label>
-      <input type="password" id="key" name="pass" placeholder="Password">
+      <input type="password" rows="8" id="key" name="pass" placeholder="Password">
+      <br>
       <label for="message">Your message: </label>
       <textarea name="message" id="message" rows="8" cols="54" placeholder="Give us something!"></textarea>
-  <span class="checkmark"></span>
-</label><input type="submit" name="submit" value="Submit">
+      <br>
+      <input type="submit" name="submit" value="Submit">
+      <input type="reset">
+      <input type="button" value="Delete" onclick="delete():">
     </form>
   </div>
     <div  style="display: inline-block; width: 400px">
@@ -370,6 +374,9 @@ def html(text, hey):
     ''' % (hey,text)
     return mywebpagestring
 
+
+
+
 debug(mode=True)
 user_text = ""
 listx = []
@@ -380,7 +387,7 @@ def get_comments(list):
     global hash
     try:
         request.POST["name"]
-        namee = request.POST["name"]
+        user_name = request.POST["name"]
         try:
             request.POST["message"]
             user_comment = request.POST["message"]
@@ -390,7 +397,7 @@ def get_comments(list):
                     pw = request.POST["pass"]
                     newHash = create_hash(pw)
                     if(newHash == hash1):
-                        list.append("<p style='font-size: 25px; font-weight: 5; padding-bottom: 7px'>"+namee+": "+user_comment+"</p>")
+                        list.append("<p style='font-size: 25px; font-weight: 5; padding-bottom: 7px'>"+user_name+": "+user_comment+"</p>")
                         user_text = "<p style='font-size: 30px; font-weight: 5'>Your comment has been added</p>"
                     else:
                         user_text = "<p style='font-size: 30px; font-weight: 5'>Wrong password, try again!</p>"
@@ -403,7 +410,7 @@ def get_comments(list):
     except:
         print("Something go wrong")
 
-def get_msg():
+def com_message():
     global listx
     global user_text
     get_comments(listx)
@@ -411,7 +418,6 @@ def get_msg():
     for i in listx:
         cmd += i
     return html(cmd, user_text)
-
 
 
 
@@ -425,8 +431,8 @@ def static_file_callback(filename):
 route('/', 'GET', index)
 route('/about','GET',about)
 route('/films','GET',films)
-route('/comment', 'GET', get_msg)
-route('/comment', 'POST', get_msg)
+route('/comment', 'GET', com_message)
+route('/comment', 'POST', com_message)
 route('/static/<filename>' , 'GET' , static_file_callback)
 
 #####################################################################
